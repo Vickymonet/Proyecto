@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+.modal {
+ display: none; /* oculto hasta abrir */
+ position: fixed;
+ left: 0; top: 0;
+ width: 100%; height: 100%;
+ background-color: rgba(0,0,0,0.5);
+ z-index: 1000;
+}
+.modal-contenido {
+ background: rgb(255, 213, 74);
+ margin: 5% auto;
+ padding: 20px;
+ border-radius: 10px;
+ max-width: 600px;
+ max-height: 80vh;
+ overflow-y: auto;
+}
+.cerrar { float: right; cursor: pointer; font-size: 24px; }
+</style> 
+
+        <!-- SCRIPT básico para abrir/cerrar el MODAL-->
+</head>
+<body>
+    <!-- SECCIÓN PARA JUGAR TRIVIA -->
+<section id="jugar-trivia">
+    <h2>¿Te animas a poner a prueba tus conocimientos?</h2>
+    <button id="abrirTrivia">Comenzar Trivia</button>
+    </section>
+    <!-- MODAL -->
+    <div id="modalTrivia" class="modal">
+     <div class="modal-contenido">
+     <span class="cerrar">&times;</span>
+     <!-- Aquí irá el formulario y resultados -->
+     <h2>Trivia sobre Faustino Oteiza</h2>
+     <form id="formTrivia">
+      <p><strong>1.</strong> ¿Dónde nació Faustino Oteiza?</p>
+      <label><input type="radio" name="p1" value="Madrid, España"> Madrid, España</label><br>
+      <label><input type="radio" name="p1" value="Navarra, España"> Navarra, España</label><br>
+      <label><input type="radio" name="p1" value="Barcelona, España"> Barcelona, España</label><br><br>
+      <p><strong>2.</strong> ¿En qué año nació?</p>
+      <label><input type="radio" name="p2" value="1890"> 1890</label><br>
+      <label><input type="radio" name="p2" value="1690"> 1690</label><br>
+      <label><input type="radio" name="p2" value="1990"> 1990</label><br><br>
+      <p><strong>3.</strong> ¿Dónde se ejerció como maestro?</p>
+      <label><input type="radio" name="p3" value="Ayegui">  Ayegui</label><br>
+      <label><input type="radio" name="p3" value="Peralta de la Sal"> Peralta de la Sal</label><br>
+      <label><input type="radio" name="p3" value="Azanui"> Azanui</label><br><br>
+      <p><strong>4.</strong> ¿Por quién fue beatificado?</p>
+      <label><input type="radio" name="p4" value="Francisco"> Francisco</label><br>
+      <label><input type="radio" name="p4" value="Leon XIII"> León XIII</label><br>
+      <label><input type="radio" name="p4" value="Juan Pablo II"> Juan Pablo II</label><br><br>
+      <p><strong>5.</strong> ¿Cuáles eran sus virtudes destacadas? </p>
+      <label><input type="radio" name="p5" value="Paciencia y fortaleza"> Paciencia y fortaleza </label><br>
+      <label><input type="radio" name="p5" value="Esperanza y sabiduría"> Esperanza y sabiduría </label><br>
+      <label><input type="radio" name="p5" value="Humildad y bondad"> Humildad y bondad</label><br><br>
+      <button type="submit">Enviar respuestas</button>
+     </form>
+     <div id="resultado"></div> 
+     
+     </div>
+    </div> 
+    <!-- SCRIPT básico para abrir/cerrar el MODAL-->
+<script>
+    const modal = document.getElementById("modalTrivia");
+    const btnAbrir = document.getElementById("abrirTrivia");
+    const btnCerrar = document.querySelector(".cerrar");
+    btnAbrir.onclick = () => { modal.style.display = "block"; };
+    btnCerrar.onclick = () => { modal.style.display = "none"; };
+    window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
+    document.getElementById("formTrivia").addEventListener("submit", function(e) {
+ e.preventDefault();
+ // Variable para puntaje
+ let puntaje = 0;
+ let salida = "";
+ // Capturamos la respuesta de la PREGUNTA 1
+ let r1 = document.querySelector('input[name="p1"]:checked');
+ // Validamos
+ if (r1) {
+ if (r1.value === "Navarra, España") {
+ puntaje++;
+ salida += "<p class='correcta'>1. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>1.  Incorrecta. Correcta: Navarra, España</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>1.  No respondida. Correcta: Navarra, España</p>";
+ }
+
+// Capturamos la respuesta de la PREGUNTA 2
+let r2 = document.querySelector('input[name="p2"]:checked');
+ // Validamos
+ if (r2) {
+ if (r2.value === "1890") {
+ puntaje++;
+ salida += "<p class='correcta'>2. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>2.  Incorrecta. Correcta: 1890</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>2.  No respondida. Correcta: 1890</p>";
+ }
+
+// Capturamos la respuesta de la PREGUNTA 3
+let r3 = document.querySelector('input[name="p3"]:checked');
+ // Validamos
+ if (r3) {
+ if (r3.value === "Peralta de la Sal") {
+ puntaje++;
+ salida += "<p class='correcta'>3. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>3.  Incorrecta. Correcta: Peralta de la Sal</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>3.  No respondida. Correcta: Peralta de la Sal</p>";
+ }
+
+// Capturamos la respuesta de la PREGUNTA 4
+let r4 = document.querySelector('input[name="p4"]:checked');
+ // Validamos
+ if (r4) {
+ if (r4.value === "Juan Pablo II") {
+ puntaje++;
+ salida += "<p class='correcta'>4. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>4.  Incorrecta. Correcta: Juan Pablo II</p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>4.  No respondida. Correcta: Juan Pablo II</p>";
+ }
+
+// Capturamos la respuesta de la PREGUNTA 5
+let r5 = document.querySelector('input[name="p5"]:checked');
+ // Validamos
+ if (r5) {
+ if (r5.value === "Paciencia y fortaleza ") {
+ puntaje++;
+ salida += "<p class='correcta'>5. Correcta</p>";
+ } else {
+ salida += "<p class='incorrecta'>5.  Incorrecta. Correcta: Paciencia y fortaleza </p>";
+ }
+ } else {
+ salida += "<p class='incorrecta'>5.  No respondida. Correcta: Paciencia y fortaleza </p>";
+ }
+
+ // Mostramos el resultado dentro del modal, debajo del formulario
+ salida += `<h5>Puntaje final: ${puntaje} de 5</h5>`;
+ document.getElementById("resultado").innerHTML = salida;
+}); 
+
+    </script> 
+    
+</body>
+</html>
